@@ -274,14 +274,14 @@ function initMap() {
                 , lng: -80.694108
             }
         , }, {
-            name: 'Mahia, RocketLabLaunch'
+            name: 'Waiora, RocketLabLaunch'
             , location: {
                 lat: -39.261392
                 , lng: 177.865157
             }
         , }
                 , {
-            name: 'Boca China, Homebase'
+            name: 'Brownsville , Homebase'
             , location: {
                 lat: 25.999869
                 , lng: -97.16748319999999
@@ -291,79 +291,72 @@ function initMap() {
     var locationOne = new google.maps.Marker({
         position: landingPlaces[0].location
         , map: map
-        , title: 'Orlando'
-    });
+        , label: 'O'
+        , name: 'Orlando'
+        , animation: google.maps.Animation.DROP
+    , });
     var locationTwo = new google.maps.Marker({
         position: landingPlaces[1].location
         , map: map
-        , title: 'Mahia'
-    });
+        , name: 'Mahia'
+        , label: 'M'
+        , animation: google.maps.Animation.DROP
+    , });
     var locationThree = new google.maps.Marker({
         position: landingPlaces[2].location
         , map: map
-        , title: 'Homebase'
-    });
+        , label: 'H'
+        , name: 'Homebase'
+        , animation: google.maps.Animation.DROP
+    , });
 }
-
-
 
 function getAPIdata(stad) {
-
-	var url = "http://api.openweathermap.org/data/2.5/weather";
-	var apiKey ="b0c8dafa512a0134e90df6ece3c2b7a2";
-	var city = stad;
-
-	// construct request
-	var request = url + "?" + "appid=" + apiKey + "&" + "q=" + city;
-	
-	// get current weather
-	fetch(request)
-	
-	// parse to JSON format
-	.then(function(response) {
-		return response.json();
-	})
-	
-	// render weather per day
-	.then(function(response) {
-		// render weatherCondition
-		onAPISucces(response);	
-	})
-	
-	// catch error
-	.catch(function (error) {
-		onAPIError(error);
-	});
+    var url = "http://api.openweathermap.org/data/2.5/weather";
+    var apiKey = "b0c8dafa512a0134e90df6ece3c2b7a2";
+    var city = stad;
+    // construct request
+    var request = url + "?" + "appid=" + apiKey + "&" + "q=" + city;
+    // get current weather
+    fetch(request)
+        // parse to JSON format
+        .then(function (response) {
+            return response.json();
+        })
+        // render weather per day
+        .then(function (response) {
+            // render weatherCondition
+            onAPISucces(response);
+        })
+        // catch error
+        .catch(function (error) {
+            onAPIError(error);
+        });
 }
-
 
 function onAPISucces(response) {
-	// get type of weather in string format
-	var type = response.weather[0].description;
-
-	// get temperature in Celcius
-	var degC = Math.floor(response.main.temp - 273.15);
-
-	// render weather in DOM
-	var weatherBox = document.getElementById('weather');
-	weatherBox.innerHTML = degC + "&#176;C <br>" + type;
+    // get type of weather in string format
+    var type = response.weather[0].description;
+    // get temperature in Celcius
+    var degC = Math.floor(response.main.temp - 273.15);
+    // render weather in DOM
+    var weatherBox = document.getElementById('weather');
+    weatherBox.innerHTML = degC + "&#176;C <br>" + type;
 }
-
 
 function onAPIError(error) {
-	console.error('Fetch request failed', error);
-	var weatherBox = document.getElementById('weather');
-	weatherBox.innerHTML = 'No weather data available <br /> Did you enter a valid city?'; 
+    console.error('Fetch request failed', error);
+    var weatherBox = document.getElementById('weather');
+    weatherBox.innerHTML = 'No weather data available <br /> Did you enter a valid city?';
 }
-
 // init data stream
-document.getElementById("getWeather0").onclick = function(){
-	getAPIdata('Brownsville');
-};
-document.getElementById("getWeather1").onclick = function(){
-	getAPIdata('Orlando');
-};
-document.getElementById("getWeather2").onclick = function(){
-	getAPIdata('Wairoa');
+document.getElementById("getWeather0").onclick = function () {
+    getAPIdata('Brownsville');
 };
 
+document.getElementById("getWeather1").onclick = function () {
+    getAPIdata('Orlando');
+};
+document.getElementById("getWeather2").onclick = function () {
+    getAPIdata('Wairoa');
+};
