@@ -292,8 +292,9 @@ function initMap() {
         position: landingPlaces[0].location
         , map: map
         , label: 'O'
-        , name: 'Orlando'
         , animation: google.maps.Animation.DROP
+                , name: 'Orlando'
+
     , });
     var locationTwo = new google.maps.Marker({
         position: landingPlaces[1].location
@@ -312,7 +313,7 @@ function initMap() {
 }
 
 function getAPIdata(stad) {
-    var url = "http://api.openweathermap.org/data/2.5/weather";
+    var url = "https://api.openweathermap.org/data/2.5/weather";
     var apiKey = "b0c8dafa512a0134e90df6ece3c2b7a2";
     var city = stad;
     // construct request
